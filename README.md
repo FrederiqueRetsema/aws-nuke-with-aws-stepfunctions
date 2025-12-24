@@ -12,7 +12,7 @@ to run it regularly. It will then directly start with nuking.
 ## Prerequisites
 
 - AWS CLI configured ([download here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html))
-- AWS CDK (Typescript) installed ([download here]https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-typescript.html))
+- AWS CDK (Typescript) installed ([download here](https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-typescript.html))
 - python3` and `pip` installed
 - When you're running on Windows, install WSL ([download here](https://learn.microsoft.com/en-us/windows/wsl/install)) or Git bash  ([download here](https://git-scm.com/install/windows))
 

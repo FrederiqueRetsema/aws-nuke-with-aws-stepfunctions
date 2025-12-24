@@ -325,7 +325,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         # Get partial output from the exception
         partial_stdout = getattr(e, 'stdout', '') or ''
         partial_stderr = getattr(e, 'stderr', '') or ''
-        partial_output = partial_stdout + partial_stderr
+        partial_output = partial_stdout + partial_stderr.decode()
         
         error_output = f"AWS Nuke execution timed out after {e.timeout} seconds\n\n"
         if partial_output:

@@ -76,6 +76,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                             'property': 'Name',
                             'type': 'glob',
                             'value': 'AWSControlTower*'
+                        },
+                        {
+                            'property': 'Name',
+                            'type': 'glob',
+                            'value': f'{project_prefix}*'
                         }
                     ],
                     'S3Object': [
@@ -87,6 +92,13 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                             'property': 'Bucket',
                             'type': 'glob',
                             'value': f'{cdk_bucket_prefix}-*'
+                        }
+                    ],
+                    'SNSTopic': [
+                        {
+                            'property': 'TopicARN',
+                            'type': 'glob',
+                            'value': f'arn:aws:sns:*:{account_id}:aws-controltower-*'
                         }
                     ],
                     'SNSSubscription': [
@@ -106,6 +118,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                             'property': 'Name',
                             'type': 'glob',
                             'value': f'/aws/lambda/{project_prefix}-*'
+                        },
+                        {
+                            'property': 'Name',
+                            'type': 'glob',
+                            'value': f'/aws/lambda/aws-controltower-*'
                         }
                     ],
                     'CloudFormationStack': [
