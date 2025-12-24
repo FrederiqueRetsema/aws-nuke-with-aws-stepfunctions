@@ -91,26 +91,27 @@ install_lambda_dependencies
 install_nodejs_dependencies
 install_cdk_dependencies
 
-if [ "$SCHEDULE" = "manual" ]; then
+if [ "${SCHEDULE}" = "manual" ]; then
    echo "Mode: Manual execution with dry-run and approval steps"
-elif [ -n "$SCHEDULE" ]; then
-   echo "Mode: Scheduled execution with cron expression: $SCHEDULE"
+elif [ -n "${SCHEDULE}" ]; then
+   echo "Mode: Scheduled execution with cron expression: ${SCHEDULE}"
 fi
 echo ""
 
 cd cdk
 echo "Deploying stack..."
-AWS_PROFILE="$PROFILE" cdk deploy \
- -c tagKey="$TAG_KEY" \
- -c tagValue="$TAG_VALUE" \
- -c emailAddress="$EMAIL_ADDRESS" \
- -c allowedRegions="$ALLOWED_REGIONS" \
- -c deploymentMode="$DEPLOYMENT_MODE" \
- -c blocklistAccounts="$BLOCKLIST_ACCOUNTS" \
- -c scheduleExpression="$SCHEDULE" \
- -c retentionDays="$RETENTION_DAYS" \
- -c nukeVersion="$NUKE_VERSION" \
- -c enforceVersion="$ENFORCE_VERSION" \
+AWS_PROFILE="${PROFILE}" cdk deploy \
+ -c tagKey="${TAG_KEY}" \
+ -c tagValue="${TAG_VALUE}" \
+ -c emailAddress="${EMAIL_ADDRESS}" \
+ -c regions="${REGIONS}" \
+ -c deploymentMode="${DEPLOYMENT_MODE}" \
+ -c blocklistAccounts="${BLOCKLIST_ACCOUNTS}" \
+ -c scheduleExpression="${SCHEDULE}" \
+ -c bucketRetentionDays="${BUCKET_RETENTION_DAYS}" \
+ -c logGroupRetentionDays="${LOG_GROUP_RETENTION_DAYS}" \
+ -c nukeVersion="${NUKE_VERSION}" \
+ -c enforceVersion="${ENFORCE_VERSION}" \
   --tags "${TAG_KEY}"="${TAG_VALUE}" \
   --require-approval never
 

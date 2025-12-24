@@ -12,7 +12,6 @@ import { Construct } from 'constructs';
 import * as logs from 'aws-cdk-lib/aws-logs';
 
 const runtime = lambda.Runtime.PYTHON_3_13
-const retentionLogGroups = 14
 
 export interface AwsNukeStackProps extends cdk.StackProps {
   projectName: string;
@@ -23,7 +22,8 @@ export interface AwsNukeStackProps extends cdk.StackProps {
   blocklistAccounts: string[];
   cdkBucketPrefix: string;
   scheduleExpression: string;
-  retentionDays: number;
+  bucketRetentionDays: number;
+  logGroupRetentionDays: number;
   nukeVersion: string;
   enforceVersion: boolean;
 }
@@ -32,7 +32,7 @@ export class AwsNukeStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: AwsNukeStackProps) {
     super(scope, id, props);
 
-    const { projectName, tagKey, tagValue, emailAddress, allowedRegions, blocklistAccounts, cdkBucketPrefix, scheduleExpression, retentionDays, nukeVersion, enforceVersion} = props;
+    const { projectName, tagKey, tagValue, emailAddress, allowedRegions, blocklistAccounts, cdkBucketPrefix, scheduleExpression, bucketRetentionDays, logGroupRetentionDays, nukeVersion, enforceVersion} = props;
 
     const awsNukeBucketName = `${projectName}-aws-nuke-bucket-${this.account}`;
 
@@ -42,8 +42,8 @@ export class AwsNukeStack extends cdk.Stack {
       autoDeleteObjects: true,
       lifecycleRules: [{
           id: 'DeletionRule',
-          abortIncompleteMultipartUploadAfter: cdk.Duration.days(retentionDays),
-          expiration: cdk.Duration.days(retentionDays),
+          abortIncompleteMultipartUploadAfter: cdk.Duration.days(bucketRetentionDays),
+          expiration: cdk.Duration.days(bucketRetentionDays),
       }]
     });
 
@@ -77,7 +77,7 @@ export class AwsNukeStack extends cdk.Stack {
 
     const logGroupGenerateConfigFunction = new logs.LogGroup(this, 'LogGroupGenerateConfigFunction', {
       logGroupName: `/aws/lambda/${projectName}-generate-config`,
-      retention: retentionLogGroups,
+      retention: logGroupRetentionDays,
     })
 
     const nukeExecutorFunction = new lambda.Function(this, 'NukeExecutorFunction', {
@@ -115,7 +115,7 @@ export class AwsNukeStack extends cdk.Stack {
 
     const logGroupExecutorFunction = new logs.LogGroup(this, 'LogGroupNukeExecutorFunction', {
       logGroupName: `/aws/lambda/${projectName}-nuke-executor`,
-      retention: retentionLogGroups,
+      retention: logGroupRetentionDays,
     })
 
     const sendNotificationFunction = new lambda.Function(this, 'SendNotificationFunction', {
@@ -146,7 +146,7 @@ export class AwsNukeStack extends cdk.Stack {
 
     const logGroupSendNotification = new logs.LogGroup(this, 'LogGroupSendNotification', {
       logGroupName: `/aws/lambda/${projectName}-send-notification`,
-      retention: retentionLogGroups,
+      retention: logGroupRetentionDays,
     })
 
     // Step Function tasks
@@ -267,7 +267,7 @@ export class AwsNukeStack extends cdk.Stack {
 
     new cdk.CfnOutput(this, 'awsNukeBucketName', {
       value: awsNukeBucketName,
-      description: `S3 bucket for AWS Nuke configurations (${retentionDays} days retention)`,
+      description: `S3 bucket for AWS Nuke configurations (${bucketRetentionDays} days retention)`,
     });
 
   }

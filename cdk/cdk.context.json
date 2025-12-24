@@ -4,7 +4,8 @@
     "tagValue": "",
     "emailAddress": "dummy@example.com",
     "scheduleExpression": "",
-    "retentionDays": 0,
+    "bucketRetentionDays": 0,
+    "logGroupRetentionDays": 0,
     "allowedRegions": [""],
     "blocklistAccounts": [""],
     "acknowledged-issue-numbers": [

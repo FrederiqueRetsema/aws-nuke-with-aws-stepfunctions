@@ -12,10 +12,10 @@ const config = {
   tagValue: app.node.tryGetContext('tagValue') || process.env.TAG_VALUE || 'persist',
   emailAddress: app.node.tryGetContext('emailAddress') || process.env.EMAIL_ADDRESS || '',
   allowedRegions: (() => {
-    const contextRegions = app.node.tryGetContext('allowedRegions');
+    const contextRegions = app.node.tryGetContext('regions');
     if (Array.isArray(contextRegions)) return contextRegions;
     if (typeof contextRegions === 'string') return contextRegions.split(',');
-    if (process.env.ALLOWED_REGIONS) return process.env.ALLOWED_REGIONS.split(',');
+    if (process.env.REGIONS) return process.env.REGIONS.split(',');
     return ['eu-west-1'];
   })(),
   blocklistAccounts: (() => {
@@ -27,12 +27,19 @@ const config = {
   })(),
   cdkBucketPrefix: app.node.tryGetContext('cdkBucketPrefix') || process.env.CDK_BUCKET_PREFIX || 'cdk-',
   scheduleExpression: app.node.tryGetContext('scheduleExpression') || process.env.SCHEDULE_EXPRESSION || 'manual',
-  retentionDays: (() => {
-    const contextRetention = app.node.tryGetContext('retentionDays');
-    if (typeof contextRetention === 'number') return contextRetention;
-    if (typeof contextRetention === 'string') return parseInt(contextRetention);
-    if (process.env.RETENTION_DAYS) return parseInt(process.env.RETENTION_DAYS, 30);
+  bucketRetentionDays: (() => {
+    const contextBucketRetention = app.node.tryGetContext('bucketRetentionDays');
+    if (typeof contextBucketRetention === 'number') return contextBucketRetention;
+    if (typeof contextBucketRetention === 'string') return parseInt(contextBucketRetention);
+    if (process.env.BUCKET_RETENTION_DAYS) return parseInt(process.env.BUCKET_RETENTION_DAYS, 30);
     return 30;
+  })(),
+  logGroupRetentionDays: (() => {
+    const contextLogGroupRetention = app.node.tryGetContext('logGroupRetentionDays');
+    if (typeof contextLogGroupRetention === 'number') return contextLogGroupRetention;
+    if (typeof contextLogGroupRetention === 'string') return parseInt(contextLogGroupRetention);
+    if (process.env.LOG_GROUP_RETENTION_DAYS) return parseInt(process.env.LOG_GROUP_RETENTION_DAYS, 14);
+    return 14;
   })(),
   nukeVersion: app.node.tryGetContext('nukeVersion') || process.env.NUKE_VERSION || 'v3.62.2',
   enforceVersion: (() => {
