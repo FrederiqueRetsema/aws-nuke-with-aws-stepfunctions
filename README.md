@@ -1,7 +1,7 @@
 # AWS Nuke with Step Functions
 
 This solution implements AWS Nuke with a Step Function workflow that:
-1. Scans AWS resources for a specific tag (Cleanup=persist)
+1. Scans AWS resources for a specific tag (configurable, f.e. Cleanup=persist)
 2. Generates an AWS Nuke configuration file excluding tagged resources and
 excluding Control Tower resources
 3. Runs AWS Nuke in dry-run mode to preview deletions
