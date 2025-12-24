@@ -1,0 +1,13 @@
+{
+    "projectName": "",
+    "tagKey": "Dummy value to prevent errors in bootstrap. Change settings in ./setenv.sh, deploy via ./scripts/deploy-cdk.sh",
+    "tagValue": "",
+    "emailAddress": "dummy@example.com",
+    "scheduleExpression": "",
+    "retentionDays": 0,
+    "allowedRegions": [""],
+    "blocklistAccounts": [""],
+    "acknowledged-issue-numbers": [
+    34892
+  ]
+}

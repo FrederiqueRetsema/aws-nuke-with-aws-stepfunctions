@@ -1,0 +1,41 @@
+# CDK
+cdk.out/
+.cdk.staging/
+*.js
+*.d.ts
+!jest.config.js
+cdk/dist/
+
+# Lambda packages
+lambda-packages/
+lambda-layers/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+_yaml/
+yaml/
+=6.0
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# aws-nuke
+setenv.sh
