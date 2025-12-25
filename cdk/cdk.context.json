@@ -1,11 +1,11 @@
 {
     "projectName": "",
-    "tagKey": "Dummy value to prevent errors in bootstrap. Change settings in ./setenv.sh, deploy via ./scripts/deploy-cdk.sh",
+    "tagKey": "Dummy values to prevent errors in bootstrap. Change settings in ./setenv.sh, deploy via ./scripts/deploy-cdk.sh",
     "tagValue": "",
     "emailAddress": "dummy@example.com",
     "scheduleExpression": "",
-    "bucketRetentionDays": 0,
-    "logGroupRetentionDays": 0,
+    "bucketRetentionDays": 1,
+    "logGroupRetentionDays": 1,
     "allowedRegions": [""],
     "blocklistAccounts": [""],
     "acknowledged-issue-numbers": [
