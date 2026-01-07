@@ -107,6 +107,7 @@ AWS_PROFILE="${PROFILE}" cdk deploy \
  -c regions="${REGIONS}" \
  -c deploymentMode="${DEPLOYMENT_MODE}" \
  -c blocklistAccounts="${BLOCKLIST_ACCOUNTS}" \
+ -c cdkBucketPrefix="${CDK_BUCKET_PREFIX}" \
  -c scheduleExpression="${SCHEDULE}" \
  -c bucketRetentionDays="${BUCKET_RETENTION_DAYS}" \
  -c logGroupRetentionDays="${LOG_GROUP_RETENTION_DAYS}" \

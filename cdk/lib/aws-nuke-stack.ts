@@ -11,7 +11,7 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 import * as logs from 'aws-cdk-lib/aws-logs';
 
-const runtime = lambda.Runtime.PYTHON_3_13
+const runtime = lambda.Runtime.PYTHON_3_14
 
 export interface AwsNukeStackProps extends cdk.StackProps {
   projectName: string;
@@ -240,6 +240,7 @@ export class AwsNukeStack extends cdk.Stack {
           awsNukeBucket: awsNukeBucketName,
           AccountId: this.account,
           Regions: allowedRegions,
+          cdkBucketPrefix: cdkBucketPrefix,
           DryRun: false, // Scheduled executions run actual deletion (no approval)
           NukeVersion: nukeVersion,
           EnforceVersion: enforceVersion,
